@@ -1,2 +1,8 @@
 # ClassBox2iCal
-export ClassBox (课程格子) timetables to iCalendar file
+Export ClassBox (课程格子) timetables to iCalendar file
+
+### Prerequisites
+```gem install icalendar```
+
+### License
+UNLICENSED.
