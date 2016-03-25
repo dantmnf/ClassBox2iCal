@@ -80,6 +80,7 @@ def course_to_events(course, week1, class_time)
     event.alarm do |a|
       a.action  = 'DISPLAY'
       a.trigger = '-PT30M'
+    end
     event
   end
 end
