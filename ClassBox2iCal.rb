@@ -77,6 +77,9 @@ def course_to_events(course, week1, class_time)
     if weeks.length > 1
       event.rrule = get_rrule(weeks, [unit['day_of_week']])
     end
+    event.alarm do |a|
+      a.action  = 'DISPLAY'
+      a.trigger = '-PT30M'
     event
   end
 end
