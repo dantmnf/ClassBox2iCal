@@ -70,6 +70,7 @@ def course_to_events(course, week1, class_time)
     event = Icalendar::Event.new
     event.summary = course['name']
     event.location = unit['room'] unless unit['room'].nil? || unit['room'].empty?
+    event.status = 'CONFIRMED'
     weeks = parse_range unit['weeks']
     slots = parse_range unit['time_slots']
     event.dtstart, event.dtend = get_time(week1, weeks.first, unit['day_of_week'], slots, class_time)
@@ -85,12 +86,12 @@ def export_semester(semester, class_time)
   name = semester['semester']['name']
   cal.x_wr_calname = name
   week1 = Date.parse semester['semester']['begin_date']
-  week1 -= 1 unless week1.monday?
+  week1 -= 1 until week1.monday?
   semester['courses'].each do |course|
     course_to_events(course, week1, class_time).each{|ev| cal.add_event ev }
   end
   orig_hook = Readline.pre_input_hook
-  
+
   Readline.pre_input_hook = -> do
     Readline.insert_text "#{name}.ics"
     Readline.redisplay
